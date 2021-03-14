@@ -1,0 +1,122 @@
+<%- include('../template/cabecera', {tituloPage:'Detalle mascota'} ) %>
+
+	<div class="container">
+
+		<h1>Detalle</h1>
+
+		<% if (error) { %>
+			<h2><%= mensaje %></h2>
+		<% } else { %>
+			<form id='formularioEditar' data-id='<%= mascota._id %>' >
+
+				<input 
+					type="text"
+					placeholder='Agregar nombre'
+					class='form-control my-2'
+					name='nombre'
+					value='<%= mascota.nombre %>'
+					id='nombreModif'
+				>
+
+				<input 
+					type="text"
+					placeholder='Agregar Descripcion'
+					class='form-control my-2'
+					name='descripcion'
+					value='<%= mascota.descripcion %>'
+					id='descripcionModify'
+				>
+
+				<button class='btn btn-success btn-block' type='submit' >
+					Modificar
+				</button>
+
+				<button class='btn btn-danger btn-block' type='button' data-id='<%= mascota._id %>' id='btnEliminar'>
+					Eliminar
+				</button>
+
+			</form>
+
+			<a 
+				href='/mascota'
+				class="btn btn-success btn-block"
+			>
+				Volver a Mascota
+			</a>
+
+		<% } %>
+		
+
+	</div>
+
+<%- include('../template/footer' ) %>
+
+<script>
+	window.addEventListener('load', () => {
+
+		const botonEliminar = document.querySelector('#btnEliminar');
+		botonEliminar.addEventListener( 'click', async() =>{
+			console.log("me diste un clic de guardar cambios");
+			const id = botonEliminar.dataset.id;
+			try{
+				const data = await fetch( `/mascota/${id}`, { method: 'delete' } )
+				const res = await data.json();
+
+				if ( res.estado ){
+					window.location.href = '/mascota'
+				}
+				else{
+					console.log( res );
+				}
+
+			} catch (e){
+				console.log( e );
+			}
+		} );
+
+
+		const formularioEditar = document.querySelector('#formularioEditar');
+
+		formularioEditar.addEventListener( 'submit', async( e ) => {
+			e.preventDefault();
+
+			const nombre = formularioEditar.elements['nombreModif'].value;
+			const descripcion = document.querySelector('#descripcionModify').value;
+			const id = formularioEditar.dataset.id;
+
+			console.log("me diste un clic de guardar cambios");
+			console.log(nombre+'   '+ descripcion+'   '+ id);
+			
+			try {
+				const data = await fetch( `/mascota/${id}`, { 
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						nombre,
+						descripcion
+					}, null, 2)
+				} )
+
+				const res = await data.json();
+				console.log( 'respuesta del server',res );
+
+				if ( res.estado ){
+					window.location.href = '/mascota'
+				}
+				else{
+					console.log( res );
+				}
+				
+			}
+			catch (e){
+				console.log( e );
+			}
+		
+		})
+
+	})
+
+
+</script>

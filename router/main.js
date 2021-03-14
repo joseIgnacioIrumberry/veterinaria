@@ -7,4 +7,9 @@ router.get( '/', ( req, res ) => {
 } )
 
 
+router.get( '/servicios', (req,res) => {
+	// res.send( 'Mi pagina de servicios');
+	res.render( 'servicio', {titulo:'Mi titulo Servicio dinamico'} );
+})
+
 module.exports = router;

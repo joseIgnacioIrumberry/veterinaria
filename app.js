@@ -15,7 +15,19 @@ require('dotenv').config()
 const port = process.env.PORT || 2020;
 
 
+//coneccion a base de datos
+const mongoose = require('mongoose');
 
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.cerny.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
+
+mongoose.connect( uri, 
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	}
+)
+.then(() => console.log("base de datos conectada"))
+.catch(e => console.log( e ) )
 
 
 //motor de plantillas
@@ -27,7 +39,7 @@ app.use( express.static( __dirname + "/public" ) )
 
 //rutas 
 app.use( '/', require( __dirname + '/router/main' ) );
-
+app.use( '/mascota', require( __dirname + '/router/router.mascota' ) );
 
 
 
