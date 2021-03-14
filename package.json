@@ -1,0 +1,30 @@
+{
+  "name": "veterinaria",
+  "version": "1.0.0",
+  "description": "Ejercicios de prueba",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joseIgnacioIrumberry/veterinaria.git"
+  },
+  "author": "Jose Ignacio Irumberry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joseIgnacioIrumberry/veterinaria/issues"
+  },
+  "homepage": "https://github.com/joseIgnacioIrumberry/veterinaria#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cowsay": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.0",
+    "nodemon": "^2.0.7"
+  }
+}
